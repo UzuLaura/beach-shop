@@ -23,7 +23,10 @@
                     <p>{{ product.about }}</p>
                     <hr>
                     <h3 class="title is-4">Price: {{ product.price }}€</h3>
-                    <b-button>Add to Chart</b-button>
+                    <div class='buttons'>
+                        <b-button>Add to Cart</b-button>
+                        <b-button>Read More</b-button>
+                    </div>
                 </div>
             </div>
         </div>
@@ -95,5 +98,8 @@ export default {
 }
 .card:hover {
     opacity: 0.9;
+}
+h2 {
+  text-transform: uppercase;
 }
 </style>

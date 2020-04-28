@@ -1,5 +1,4 @@
 <template>
-
   <div class="container">
     <b-navbar>
       <template slot="brand">
@@ -15,13 +14,11 @@
           <router-link class="a-name" to="/">Home</router-link>
         </b-navbar-item>
         <b-navbar-item href="#">
-          <router-link class="a-name" to="/about">Watches</router-link>
+          <router-link class="a-name" to="/products">Watches</router-link>
         </b-navbar-item>
       </template>
     </b-navbar>
   </div>
-
-    
 </template>
 
 <script>
