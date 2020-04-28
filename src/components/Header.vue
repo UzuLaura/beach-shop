@@ -1,4 +1,5 @@
 <template>
+
   <div class="container">
     <b-navbar>
       <template slot="brand">
@@ -19,6 +20,8 @@
       </template>
     </b-navbar>
   </div>
+
+    
 </template>
 
 <script>
@@ -34,4 +37,5 @@ export default {
 .a-name {
   color: #0f7670;
 }
+
 </style>
