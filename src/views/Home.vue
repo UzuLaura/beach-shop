@@ -66,7 +66,7 @@ export default {
   },
   methods: {
     redirect () {
-      this.$router.push('/about')
+      this.$router.push('/products')
     }
   }
 }

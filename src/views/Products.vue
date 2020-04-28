@@ -3,8 +3,13 @@
     <section class="hero is-bold is-dark is-medium">
         <div class="hero-body">
             <div class="container">
-            <h1 class="title">Our Products</h1>
-            <h2 class="subtitle">All Watches</h2>
+              <h1 class="title">Our Products</h1>
+              <h2 class="subtitle">{{ subtitle.toUpperCase() }}</h2>
+            </div>
+            <div class="buttons container filter-buttons">
+              <b-button v-on:click ="filterData('female')" v-bind:class="filterBtn.female">Female</b-button>
+              <b-button v-on:click ="filterData('male')" v-bind:class="filterBtn.male">Male</b-button>
+              <b-button v-on:click ="filterData('all')" v-bind:class="filterBtn.all">All</b-button>
             </div>
         </div>
     </section>
@@ -14,7 +19,7 @@
             :key='product.title'
             >
                 <div class="flex-card">
-                    <img class="product-img" :src="product.img" :alt="product.title">
+                    <img v-on:click="redirect(product.id)" class="product-img" :src="product.img" :alt="product.title">
                 </div>
                 <div class="card-content">
                     <h2 class="title is-4">{{ product.title }}</h2>
@@ -24,8 +29,8 @@
                     <hr>
                     <h3 class="title is-4">Price: {{ product.price }}€</h3>
                     <div class='buttons'>
-                        <b-button>Add to Cart</b-button>
-                        <b-button>Read More</b-button>
+                        <b-button class='is-info'>Add to Cart</b-button>
+                        <b-button v-on:click="redirect(product.id)">Read More</b-button>
                     </div>
                 </div>
             </div>
@@ -42,10 +47,17 @@ export default {
   name: 'Products',
   data () {
     return {
-      products: []
+      products: [],
+      filterBtn: {
+        female: '',
+        male: '',
+        all: 'is-dark'
+      },
+      subtitle: 'all watches'
     }
   },
   methods: {
+    // Method to fetch all data from DB
     get () {
       firebase
         .firestore()
@@ -54,6 +66,7 @@ export default {
         .then(data => {
           data.forEach(product => {
             const newObj = {
+              id: product.id,
               title: product.data().title,
               price: product.data().price,
               img: product.data().img,
@@ -62,9 +75,12 @@ export default {
               tagColor: this.setTagColor(product.data().tag)
             }
             this.products.push(newObj)
-            console.log(newObj)
           })
         })
+    },
+    // Method to route to single product page
+    redirect (id) {
+      this.$router.push('/products/' + id)
     },
     cutText (string) {
       if (string.length > 200) {
@@ -80,26 +96,81 @@ export default {
       } else {
         return 'is-success'
       }
+    },
+    // Method to filter fetched data on button click
+    filterData (button) {
+      if (button !== 'all') {
+        // Resets data
+        this.products = []
+        // Changes button color and subttitle
+        if (button === 'female') {
+          this.filterBtn.all = ''
+          this.filterBtn.male = ''
+          this.filterBtn.female = 'is-dark'
+          this.subtitle = 'for women'
+        } else {
+          this.filterBtn.all = ''
+          this.filterBtn.female = ''
+          this.filterBtn.male = 'is-dark'
+          this.subtitle = 'for men'
+        }
+        firebase
+          .firestore()
+          .collection('watches')
+          .where('tag', '==', button)
+          .get()
+          .then(data => {
+            data.forEach(product => {
+              const newObj = {
+                id: product.id,
+                title: product.data().title,
+                price: product.data().price,
+                img: product.data().img,
+                about: this.cutText(product.data().about),
+                tag: product.data().tag,
+                tagColor: this.setTagColor(product.data().tag)
+              }
+              this.products.push(newObj)
+            })
+          })
+      } else {
+        // Changes button color and subtitle
+        this.filterBtn.all = 'is-dark'
+        this.filterBtn.male = ''
+        this.filterBtn.female = ''
+        this.subtitle = 'all watches'
+        // Resets data
+        this.products = []
+        this.get()
+      }
     }
   },
+  // Getting DB data on page load
   beforeMount () {
     this.get()
   }
 }
 </script>
 
-<style>
+<style scoped>
 .flex-card {
     display: flex;
     justify-content: center;
 }
 .product-img {
     height: 300px;
+    cursor: pointer;
 }
 .card:hover {
-    opacity: 0.9;
+    opacity: 0.8;
+}
+.hero {
+  margin-bottom: 20px;
 }
 h2 {
   text-transform: uppercase;
+}
+.filter-buttons {
+  margin-top: 10px !important;
 }
 </style>
