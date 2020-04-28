@@ -83,4 +83,7 @@ export default {
     display: flex;
     justify-content: center;
 }
+h1 {
+    text-transform: uppercase;
+}
 </style>
