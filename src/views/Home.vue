@@ -6,26 +6,44 @@
         </b-carousel-item>
     </b-carousel>
     <div class="container">
-      <div class="columns">
-          <div class="column">
+      <div class="columns text">
+          <div class="column watch">
             <h1 class="title is-3">Laikrodziai<br>
             Vyrams</h1>
-            <button class="button" @click="redirect" type="submit">Ziureti</button>
+            <b-button type="button" @click="redirect" native-type="submit">Ziureti</b-button>
         </div>
-         <div class="column">
+        <div class="line"></div>
+         <div class="column watch">
             <h1 class="title is-3">Laikrodziai<br>
             Moterims</h1>
-            <button class="button" @click="redirect" type="submit">Ziureti</button>
+            <b-button type="button" @click="redirect" native-type="submit">Ziureti</b-button>
+        </div>
+        <div class="line"></div>
+        <div class="column watch">
+            <h1 class="title is-3">Visi<br>
+            Laikrodziai</h1>
+            <b-button type="button" @click="redirect" native-type="submit">Ziureti</b-button>
         </div>
       </div>
     </div>
     <div class="content">
-      <div class="wrapper">
+      <div class="container wrapper">
       </div>
-      <div class="collection">
+      <div class="container collection">
         <div class="show">
-          <h2 class="title is-3">Kolekcija</h2>
-          <button class="button is-primary" type="submit">Ieskoti</button>
+          <h2>Kolekcijos</h2>
+          <b-button type="button is-dark" @click="redirect" native-type="submit">Ieskoti</b-button>
+        </div>
+      </div>
+      <div class="container content1">
+            <div class="columns">
+              <div class="column photo">
+              </div>
+              <div class="column text1">
+                <h1 class="title is-2">Unikalus<br>
+                <span class="laikrodis">Laikrodziai</span></h1>
+                  <b-button class='button mygtukas' type="is-dark" outlined @click="redirect" native-type="submit">Ziureti</b-button>
+          </div>
         </div>
       </div>
     </div>
@@ -54,64 +72,86 @@ export default {
 }
 </script>
 <style scoped>
+.columns, .column{
+  margin: 0;
+  padding: 0;
+}
 .carousel img{
   height: 550px;
   width: 100%;
 }
-.columns{
-  height: 200px;
+.text{
   display: flex;
   align-items: center;
+  padding-bottom: 1em;
 }
-.column{
+.laikrodis{
+  margin-left: 30px;
+}
+.watch{
   text-align: center;
   margin-top: 20px;
 }
 .button{
   border: none;
 }
+.mygtukas{
+  border: 1px solid black;
+  width: 30%;
+  padding-top: 10px;
+  padding-bottom: 35px;
+}
+.content h2{
+  margin: 0;
+  padding: 0;
+}
 .button::after{
     content: "\276F";
     font-size: .8em;
     display: inline-block;
     padding-left: 15px;
-    transition: -webkit-transform .3s ease;
-    transition: transform .3s ease;
-    transition: transform .3s ease,-webkit-transform .3s ease;
 }
-.column:after{
+.line{
     content: "";
     display: block;
     background-color: #e6e6e6;
     width: 1px;
     height: 90px;
-    position: absolute;
-    right: 50%;
-    top: 50%;
-    -webkit-transform: translateY(-50%);
-    transform: translateY(-50%);
 
 }
 .content{
   background-color: #eee;
 }
 .collection{
-  width: 80%;
   margin: 0 auto;
   background: #fff;
 }
 .show{
-  width: 85%;
   margin: 0 auto;
   display: flex;
-  padding-top: 15px;
   justify-content: space-between;
+  align-items: center;
+  height: 80px;
+  width: 85%;
 }
 .wrapper{
-  width: 80%;
   margin: 0 auto;
   background-image: url('https://www.vacheron-constantin.com/content/dam-import/vac/a9c9/11f0/2038102.png.scale.1180.380.jpeg');
   background-size: cover;
-  height: 300px;
+  height: 350px;
 }
+.content1{
+  margin-top: 15px;
+}
+.photo{
+  background-image: url('https://images.unsplash.com/photo-1482775907821-a56ec43344fc?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1952&q=80');
+  background-size: cover;
+  height: 550px;
+}
+.text1{
+  background-color: white;
+  padding-top: 100px;
+  padding-left: 40px;
+}
+
 </style>
