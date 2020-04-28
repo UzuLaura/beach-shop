@@ -14,7 +14,7 @@
                   <router-link to="/">Home</router-link>
                 </b-navbar-item>
                 <b-navbar-item href="#">
-                 <router-link to="/about">Watches</router-link>
+                 <router-link to="/products">Watches</router-link>
                 </b-navbar-item>
             </template>
     </b-navbar>
@@ -28,7 +28,4 @@ export default {
 </script>
 
 <style>
-    .navbar-item img{
-        max-height: 150px;
-    }
 </style>
