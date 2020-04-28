@@ -93,4 +93,7 @@ export default {
 .product-img {
     height: 300px;
 }
+.card:hover {
+    opacity: 0.9;
+}
 </style>
