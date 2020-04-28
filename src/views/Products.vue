@@ -1,10 +1,13 @@
 <template>
   <div class="products">
-      <h1>Text</h1>
-      <div v-for='product in products'
-        :key='product.title'
-        >
-          {{ product.title }}
+      <div>
+        <h1>Our Products</h1>
+        <div class="column" v-for='product in products'
+            :key='product.title'
+            >
+            <img class="" :src="product.img" :alt="product.title">
+            <h2>{{ product.title }}</h2>
+        </div>
       </div>
   </div>
 </template>
@@ -44,5 +47,4 @@ export default {
 </script>
 
 <style>
-
 </style>
