@@ -84,6 +84,7 @@ export default {
       cart.push({ id: id, price: price, title: title })
       cart = JSON.stringify(cart)
       localStorage.setItem('cart', cart)
+      // const cartNum = document.getElementById('basket')
     },
     // Method to route to single product page
     redirect (id) {
@@ -169,7 +170,7 @@ export default {
 }
 </script>
 
-<style scoped>
+<style>
 .flex-card {
     display: flex;
     justify-content: center;
