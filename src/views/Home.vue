@@ -10,13 +10,13 @@
           <div class="column watch">
             <h1 class="title is-3">Laikrodziai<br>
             Vyrams</h1>
-            <b-button type="button" @click="redirect" native-type="submit">Ziureti</b-button>
+            <b-button type="button" @click="redirectMale" native-type="submit">Ziureti</b-button>
         </div>
         <div class="line"></div>
          <div class="column watch">
             <h1 class="title is-3">Laikrodziai<br>
             Moterims</h1>
-            <b-button type="button" @click="redirect" native-type="submit">Ziureti</b-button>
+            <b-button type="button" @click="redirectFemale" native-type="submit">Ziureti</b-button>
         </div>
         <div class="line"></div>
         <div class="column watch">
@@ -66,7 +66,13 @@ export default {
   },
   methods: {
     redirect () {
-      this.$router.push('/about')
+      this.$router.push('/products')
+    },
+    redirectFemale () {
+      this.$router.push('/products/female')
+    },
+    redirectMale () {
+      this.$router.push('/products/male')
     }
   }
 }
