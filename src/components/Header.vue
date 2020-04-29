@@ -17,7 +17,7 @@
           <router-link class="a-name" to="/products">Watches</router-link>
         </b-navbar-item>
         <b-navbar-item href="#">
-          <router-link class="a-name" to="/"><img class="basket" src="../img/basket2.png" alt="basket"></router-link>
+          <router-link class="a-name" to="/"><img v-on:click="getCart" class="basket" src="../img/basket2.png" alt="basket"><span>{{ cartLength }}</span></router-link>
         </b-navbar-item>
       </template>
     </b-navbar>
@@ -27,7 +27,19 @@
 <script>
 export default {
   name: 'Header',
+  data () {
+    return {
+      cartLength: 0
+    }
+  },
   methods: {
+    getCart () {
+      const cart = JSON.parse(localStorage.getItem('cart'))
+      this.cartLength = cart.length
+    }
+  },
+  beforeMount () {
+    this.getCart()
   }
 }
 </script>
