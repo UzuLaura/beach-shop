@@ -4,7 +4,7 @@
       <template slot="brand">
         <b-navbar-item tag="router-link" :to="{ path: '/' }">
           <img
-            src="../img/logo-watchshop.jpg"
+            src="../img/logo-watchshop.png"
             alt="Logo"
           >
         </b-navbar-item>
@@ -45,11 +45,18 @@ export default {
 </script>
 
 <style scoped>
-.navbar-item img {
-  max-height: 100px;
-}
-.a-name {
-  color: #0f7670;
-}
-
+  .basket {
+    height: 25px;
+    color: #0f7670;
+    vertical-align: middle;
+    transform: translate(0, -10%)
+  }
+  .navbar-item img {
+    max-height: 50px;
+    padding: 2px;
+  }
+  .a-name {
+    color: #0f7670;
+    font-size: 20px;
+  }
 </style>
