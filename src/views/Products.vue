@@ -81,7 +81,7 @@ export default {
     // Add to local storage Cart
     addToCart (id, price, title, img) {
       let cart = JSON.parse(localStorage.getItem('cart')) || []
-      cart.push({ id: id, price: price, title: title, img: img })
+      cart.push({ id: id, price: price, title: title, img: img, quantity: 0 })
       cart = JSON.stringify(cart)
       localStorage.setItem('cart', cart)
       window.location.reload()
