@@ -45,15 +45,11 @@ export default {
 </script>
 
 <style scoped>
-  .basket {
-    height: 20px;
-    color: #0f7670;
-  }
-  .navbar-item img {
-    max-height: 100px;
-  }
-  .a-name {
-    color: #0f7670;
-  }
+.navbar-item img {
+  max-height: 100px;
+}
+.a-name {
+  color: #0f7670;
+}
 
 </style>
