@@ -4,7 +4,7 @@
       <template slot="brand">
         <b-navbar-item tag="router-link" :to="{ path: '/' }">
           <img
-            src="../img/logo-watchshop.jpg"
+            src="../img/logo-watchshop.png"
             alt="Logo"
           >
         </b-navbar-item>
