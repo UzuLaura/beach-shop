@@ -32,14 +32,17 @@ export default {
 
 <style scoped>
   .basket {
-    height: 20px;
+    height: 25px;
     color: #0f7670;
+    vertical-align: middle;
+    transform: translate(0, -10%)
   }
   .navbar-item img {
-    max-height: 100px;
+    max-height: 50px;
+    padding: 2px;
   }
   .a-name {
     color: #0f7670;
+    font-size: 20px;
   }
-
 </style>
