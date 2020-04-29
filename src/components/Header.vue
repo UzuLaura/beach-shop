@@ -16,6 +16,9 @@
         <b-navbar-item href="#">
           <router-link class="a-name" to="/products">Watches</router-link>
         </b-navbar-item>
+        <b-navbar-item href="#">
+          <router-link class="a-name" to="/"><img class="basket" src="../img/basket2.png" alt="basket"></router-link>
+        </b-navbar-item>
       </template>
     </b-navbar>
   </div>
@@ -28,11 +31,15 @@ export default {
 </script>
 
 <style scoped>
-.navbar-item img {
-  max-height: 100px;
-}
-.a-name {
-  color: #0f7670;
-}
+  .basket {
+    height: 20px;
+    color: #0f7670;
+  }
+  .navbar-item img {
+    max-height: 100px;
+  }
+  .a-name {
+    color: #0f7670;
+  }
 
 </style>
