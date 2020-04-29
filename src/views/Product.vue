@@ -17,7 +17,7 @@
                     <img class="product-img" :src="product.img" :alt="product.title">
                 </div>
                 <div class="card-content">
-                    <b-button class="is-medium is-fullwidth is-dark is-outlined">Add to Cart</b-button>
+                    <b-button v-on:click ="addToCart(product.id, product.price, product.title, product.img)" class="is-medium is-fullwidth is-dark is-outlined">Add to Cart</b-button>
                     <hr>
                     <h3 class="title is-4">Price: {{ product.price }}€</h3>
                     <p>{{ product.about }}</p>
@@ -62,6 +62,14 @@ export default {
           this.product.tagColor = this.setTagColor(data.data().tag)
         })
     },
+    // Add to local storage Cart
+    addToCart (id, price, title, img) {
+      let cart = JSON.parse(localStorage.getItem('cart')) || []
+      cart.push({ id: id, price: price, title: title, img: img })
+      cart = JSON.stringify(cart)
+      localStorage.setItem('cart', cart)
+      window.location.reload()
+    },
     setTagColor (tag) {
       if (tag === 'female') {
         return 'is-danger'
@@ -78,7 +86,7 @@ export default {
 
 </script>
 
-<style>
+<style scoped>
 .flex-card {
     display: flex;
     justify-content: center;
