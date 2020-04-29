@@ -10,8 +10,8 @@
     <section class="container">
         <table class="table table is-fullwidth">
             <thead>
-                <th>Quantity</th>
-                <th>Item Image</th>
+                <th style="text-align:right">Quantity</th>
+                <th style="text-align:center">Item Image</th>
                 <th>Item Name</th>
                 <th>Price</th>
                 <th>Remove</th>
@@ -19,8 +19,8 @@
             <tbody>
                 <tr v-for='item in cart'
                 :key='item.title'>
-                    <td>1</td>
-                    <td><img class="product-img" :src="item.img" :alt="item.title"></td>
+                    <td style="text-align:right">1</td>
+                    <td style="text-align:center"><img class="product-img" :src="item.img" :alt="item.title"></td>
                     <td>{{ item.title }}</td>
                     <td>{{ item.price }} EUR</td>
                     <td><b-button v-on:click="removeFromCart(item.id)">Remove</b-button></td>
@@ -66,7 +66,8 @@ export default {
 
 <style scoped>
     .product-img {
-        width: 100px;
+        height: 100px;
+        display: inline-block;
     }
     table {
         margin-top: 10px;
