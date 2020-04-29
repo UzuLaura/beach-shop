@@ -80,7 +80,7 @@ export default {
     },
     // Method to route to single product page
     redirect (id) {
-      this.$router.push('/products/' + id)
+      this.$router.push('/products/id/' + id)
     },
     cutText (string) {
       if (string.length > 200) {
@@ -100,6 +100,8 @@ export default {
     // Method to filter fetched data on button click
     filterData (button) {
       if (button !== 'all') {
+        // Redirect
+        this.$router.push('/products/' + button)
         // Resets data
         this.products = []
         // Changes button color and subttitle
@@ -134,6 +136,8 @@ export default {
             })
           })
       } else {
+        // Redirect
+        this.$router.push('/products/' + button)
         // Changes button color and subtitle
         this.filterBtn.all = 'is-dark'
         this.filterBtn.male = ''
@@ -147,7 +151,13 @@ export default {
   },
   // Getting DB data on page load
   beforeMount () {
-    this.get()
+    if (this.$route.path === '/products/female') {
+      this.filterData('female')
+    } else if (this.$route.path === '/products/male') {
+      this.filterData('male')
+    } else {
+      this.get()
+    }
   }
 }
 </script>

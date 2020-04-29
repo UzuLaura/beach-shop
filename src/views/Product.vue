@@ -86,4 +86,7 @@ export default {
 h1 {
     text-transform: uppercase;
 }
+.product-img {
+  height: 500px;
+}
 </style>
