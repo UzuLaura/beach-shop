@@ -29,7 +29,7 @@
                     <hr>
                     <h3 class="title is-4">Price: {{ product.price }}€</h3>
                     <div class='buttons'>
-                        <b-button class='is-info'>Add to Cart</b-button>
+                        <b-button v-on:click ="addToCart(product.id, product.price, product.title)" class='is-info'>Add to Cart</b-button>
                         <b-button v-on:click="redirect(product.id)">Read More</b-button>
                     </div>
                 </div>
@@ -77,6 +77,13 @@ export default {
             this.products.push(newObj)
           })
         })
+    },
+    // Add to local storage Cart
+    addToCart (id, price, title) {
+      let cart = JSON.parse(localStorage.getItem('cart')) || []
+      cart.push({ id: id, price: price, title: title })
+      cart = JSON.stringify(cart)
+      localStorage.setItem('cart', cart)
     },
     // Method to route to single product page
     redirect (id) {
