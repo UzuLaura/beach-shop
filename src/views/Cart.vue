@@ -23,13 +23,14 @@
                     <td style="text-align:center"><img class="product-img" :src="item.img" :alt="item.title"></td>
                     <td>{{ item.title }}</td>
                     <td>{{ item.price }} EUR</td>
-                    <td><b-button v-on:click="removeFromCart(item.id)">Remove</b-button></td>
+                    <td><b-button type="is-danger" outlined v-on:click="removeFromCart(item.id)">Remove</b-button></td>
                 </tr>
             </tbody>
             <tfoot>
                 <tr>
-                    <td colspan="4" class="right subtitle">Total Price:</td>
-                    <td class="subtitle">EUR</td>
+                    <td colspan="3" class="right subtitle">Total Price:</td>
+                    <td class="subtitle"> {{total}}  EUR</td>
+                    <td><b-button @click="redirect"  type="is-dark" outlined native-type="submit">Proceed to payment</b-button></td>
                 </tr>
             </tfoot>
         </table>
@@ -42,13 +43,23 @@ export default {
   name: 'Cart',
   data () {
     return {
-      cart: []
+      cart: [],
+      quantity: 0
+    }
+  },
+  computed: {
+    total () {
+      return this.cart.reduce((acc, cur) => acc + Math.floor(cur.price), 0)
     }
   },
   methods: {
     getFromCart () {
       const cart = JSON.parse(localStorage.getItem('cart'))
+
       cart.forEach(item => this.cart.push(item))
+    },
+    redirect () {
+      this.$router.push('/orders')
     },
     removeFromCart (id) {
       let cart = JSON.parse(localStorage.getItem('cart'))
