@@ -8,42 +8,44 @@
     <div class="container">
       <div class="columns text">
           <div class="column watch">
-            <h1 class="title is-3">Laikrodziai<br>
-            Vyrams</h1>
-            <b-button type="button" @click="redirectMale" native-type="submit">Ziureti</b-button>
+            <h1 class="title is-3">FOR<br>
+            MEN</h1>
+            <b-button type="button" @click="redirectMale" native-type="submit">Look</b-button>
         </div>
         <div class="line"></div>
          <div class="column watch">
-            <h1 class="title is-3">Laikrodziai<br>
-            Moterims</h1>
-            <b-button type="button" @click="redirectFemale" native-type="submit">Ziureti</b-button>
+            <h1 class="title is-3">FOR<br>
+            WOMEN</h1>
+            <b-button type="button" @click="redirectFemale" native-type="submit">Look</b-button>
         </div>
         <div class="line"></div>
         <div class="column watch">
-            <h1 class="title is-3">Visi<br>
-            Laikrodziai</h1>
-            <b-button type="button" @click="redirect" native-type="submit">Ziureti</b-button>
+            <h1 class="title is-3">FOR<br>
+            BOTH</h1>
+            <b-button type="button" @click="redirect" native-type="submit">Look</b-button>
         </div>
       </div>
     </div>
-    <div class="content">
+    <div class="content content1">
       <div class="container wrapper">
       </div>
       <div class="container collection">
         <div class="show">
-          <h2>Kolekcijos</h2>
-          <b-button type="button is-dark" @click="redirect" native-type="submit">Ieskoti</b-button>
+          <h2>Collections</h2>
+          <b-button type="button is-dark" @click="redirect" native-type="submit">Find</b-button>
         </div>
       </div>
       <div class="container content1">
             <div class="columns">
               <div class="column photo">
+            </div>
+            <div class="column text1">
+              <div>
+                <h1 class="title is-2">UNIQUE<br>
+                <span class="laikrodis">WATCHES</span></h1>
+                <b-button class='button mygtukas' type="is-dark" outlined @click="redirect" native-type="submit">Look</b-button>
               </div>
-              <div class="column text1">
-                <h1 class="title is-2">Unikalus<br>
-                <span class="laikrodis">Laikrodziai</span></h1>
-                  <b-button class='button mygtukas' type="is-dark" outlined @click="redirect" native-type="submit">Ziureti</b-button>
-          </div>
+            </div>
         </div>
       </div>
     </div>
@@ -103,7 +105,7 @@ export default {
 }
 .mygtukas{
   border: 1px solid black;
-  width: 30%;
+  width: 100%;
   padding-top: 10px;
   padding-bottom: 35px;
 }
@@ -144,6 +146,7 @@ export default {
   margin: 0 auto;
   background-image: url('https://www.vacheron-constantin.com/content/dam-import/vac/a9c9/11f0/2038102.png.scale.1180.380.jpeg');
   background-size: cover;
+  background-position: center;
   height: 350px;
 }
 .content1{
@@ -156,8 +159,9 @@ export default {
 }
 .text1{
   background-color: white;
-  padding-top: 100px;
-  padding-left: 40px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 550px;
 }
-
 </style>
