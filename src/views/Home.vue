@@ -32,7 +32,7 @@
       <div class="container collection">
         <div class="show">
           <h2>Collections</h2>
-          <b-button type="button is-dark" @click="redirect" native-type="submit">Find</b-button>
+          <b-button id="btn" type="button is-dark" @click="redirect" native-type="submit">Find</b-button>
         </div>
       </div>
       <div class="container content1">
@@ -89,8 +89,6 @@ export default {
   width: 100%;
 }
 .text{
-  display: flex;
-  align-items: center;
   padding-bottom: 1em;
 }
 .laikrodis{
@@ -113,6 +111,9 @@ export default {
   margin: 0;
   padding: 0;
 }
+#btn{
+  color:rgba(253, 221, 37, 0.877);
+}
 .button::after{
     content: "\276F";
     font-size: .8em;
@@ -125,6 +126,7 @@ export default {
     background-color: #e6e6e6;
     width: 1px;
     height: 90px;
+    margin-top: 25px;
 
 }
 .content{
@@ -163,5 +165,19 @@ export default {
   justify-content: center;
   align-items: center;
   height: 550px;
+}
+@media only screen and (max-width:763px){
+  .line{
+    margin: 0 auto;
+    height: 2px;
+    margin-top: 20px;
+    width: 250px;
+  }
+  .photo{
+    max-height: 400px;
+  }
+  .text1{
+    padding-bottom: 50px;
+  }
 }
 </style>
