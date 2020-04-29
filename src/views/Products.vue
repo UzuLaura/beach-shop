@@ -7,8 +7,8 @@
               <h2 class="subtitle">{{ subtitle.toUpperCase() }}</h2>
             </div>
             <div class="buttons container filter-buttons">
-              <b-button v-on:click ="filterData('female')" v-bind:class="filterBtn.female">Female</b-button>
-              <b-button v-on:click ="filterData('male')" v-bind:class="filterBtn.male">Male</b-button>
+              <b-button v-on:click ="filterData('female')" v-bind:class="filterBtn.female">For Her</b-button>
+              <b-button v-on:click ="filterData('male')" v-bind:class="filterBtn.male">For Him</b-button>
               <b-button v-on:click ="filterData('all')" v-bind:class="filterBtn.all">All</b-button>
             </div>
         </div>
@@ -182,5 +182,8 @@ h2 {
 }
 .filter-buttons {
   margin-top: 10px !important;
+}
+.filter-buttons button {
+    text-transform: uppercase;
 }
 </style>
