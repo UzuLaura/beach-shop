@@ -1,5 +1,6 @@
 <template>
   <div class="product">
+    <Spinner v-bind:loading="loadingScreen"/>
     <section class="hero is-bold is-dark">
         <div class="hero-body">
             <div class="container">
@@ -31,9 +32,11 @@
 <script>
 import firebase from 'firebase/app'
 import 'firebase/firebase-firestore'
+import Spinner from '../components/Spinner'
 
 export default {
   name: 'Product',
+  components: { Spinner },
   data () {
     return {
       product: {
@@ -41,7 +44,8 @@ export default {
         title: 'Undefined'
       },
       filterBtn: {},
-      id: this.$route.params.id
+      id: this.$route.params.id,
+      loadingScreen: true
     }
   },
   methods: {
@@ -60,6 +64,9 @@ export default {
           this.product.about = data.data().about
           this.product.tag = data.data().tag
           this.product.tagColor = this.setTagColor(data.data().tag)
+        })
+        .then(() => {
+          this.loadingScreen = false
         })
     },
     // Add to local storage Cart

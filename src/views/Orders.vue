@@ -163,6 +163,8 @@ export default {
           this.email = ''
           this.number = ''
           this.address = ''
+          localStorage.clear()
+          window.location.reload()
           alert('Info was added')
         })
       } else {
