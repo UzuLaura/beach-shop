@@ -194,4 +194,5 @@ h2 {
 .filter-buttons button {
     text-transform: uppercase;
 }
+
 </style>

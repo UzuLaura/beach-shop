@@ -1,6 +1,9 @@
 <template>
     <section class="container">
         <div class="paymentForm">
+        <b-notification :active.sync="isActive" class="is-warning" aria-close-label="Close notification">
+          You have successfully made a payment
+        </b-notification>
             <form @submit.prevent="addInfo">
                 <div class="columns">
                     <div class="column">
@@ -44,10 +47,13 @@
                   <div class="columns">
                       <div class="column">
                           <b-field label="Address">
-                              <b-input v-model="address" placeholder="address"></b-input>
+                              <b-input v-model="address" placeholder="1234 Main street"></b-input>
                           </b-field>
                       </div>
                   </div>
+                  <b-field label="Message(optional)">
+                    <b-input maxlength="200" type="textarea"></b-input>
+                </b-field>
                   <div class="block">
                         <b-radio
                             native-value="Flint">
@@ -55,7 +61,7 @@
                         </b-radio>
                   </div>
                   <div class="buttons is-right">
-                      <b-button id="btn" type="button  is-warning" native-type="submit" @click="isComponentModalActive = true" outlined>Pay  {{amount}}€ </b-button>
+                      <b-button id="btn" type="button  is-info" native-type="submit" @click="isComponentModalActive = true" outlined>Pay  {{amount}}€ </b-button>
                   </div>
                   <b-modal :active.sync="isComponentModalActive"
                         has-modal-card
@@ -88,8 +94,9 @@ export default {
       number: '',
       address: '',
       amount: 0,
-      isComponentModalActive: false
-      //   complete: false
+      isComponentModalActive: false,
+      //   complete: false,
+      isActive: false
 
     }
   },
@@ -101,8 +108,17 @@ export default {
         surname: this.surname,
         email: this.email,
         number: this.number,
-        address: this.address
-      }).then(() => alert('info was added'))
+        address: this.address,
+        time: firebase.firestore.FieldValue.serverTimestamp()
+      }).then(() => {
+        this.isActive = true
+        this.name = ''
+        this.surname = ''
+        this.email = ''
+        this.number = ''
+        this.address = ''
+        alert('Info was added')
+      })
     },
     getPrice () {
       const price = JSON.parse(localStorage.getItem('cart'))
@@ -138,7 +154,6 @@ form{
 #btn{
   padding-left: 20px;
   padding-right: 20px;
-  color: silver
 }
 /* .stripe-card {
   width: 300px;
