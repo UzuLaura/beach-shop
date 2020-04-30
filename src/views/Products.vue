@@ -1,5 +1,6 @@
 <template>
   <div class="products">
+    <Spinner  v-bind:loading="loadingScreen"/>
     <section class="hero is-bold is-dark is-medium">
         <div class="hero-body">
             <div class="container">
@@ -42,9 +43,11 @@
 <script>
 import firebase from 'firebase/app'
 import 'firebase/firebase-firestore'
+import Spinner from '../components/Spinner'
 
 export default {
   name: 'Products',
+  components: { Spinner },
   data () {
     return {
       products: [],
@@ -53,9 +56,11 @@ export default {
         male: '',
         all: 'is-dark'
       },
-      subtitle: 'all watches'
+      subtitle: 'all watches',
+      loadingScreen: true
     }
   },
+
   methods: {
     // Method to fetch all data from DB
     get () {
@@ -76,6 +81,8 @@ export default {
             }
             this.products.push(newObj)
           })
+        }).then(() => {
+          this.loadingScreen = false
         })
     },
     // Add to local storage Cart
@@ -97,7 +104,8 @@ export default {
       console.log(cart)
       cart = JSON.stringify(cart)
       localStorage.setItem('cart', cart)
-      // window.location.reload()
+      window.location.reload()
+      // this.$emit('addToCart')
     },
     // Method to route to single product page
     redirect (id) {
@@ -207,5 +215,4 @@ h2 {
 .filter-buttons button {
     text-transform: uppercase;
 }
-
 </style>
