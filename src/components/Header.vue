@@ -17,7 +17,7 @@
           <router-link class="a-name" to="/products">Watches</router-link>
         </b-navbar-item>
         <b-navbar-item href="#">
-          <router-link class="a-name" to="/cart"><img v-on:click="getCart" class="basket" src="../img/basket2.png" alt="basket"><span>{{ cartLength }}</span></router-link>
+          <router-link class="a-name" to="/cart"><img @addToCart="getCart" class="basket" src="../img/basket2.png" alt="basket"><span>{{ cartLength }}</span></router-link>
         </b-navbar-item>
       </template>
     </b-navbar>

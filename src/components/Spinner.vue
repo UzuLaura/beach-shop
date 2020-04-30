@@ -1,5 +1,5 @@
 <template>
-  <div class="spinner" v-bind:loading="loading">
+  <div class="spinner" v-if="loading">
       <div class="loader"></div>
   </div>
 </template>
@@ -13,18 +13,18 @@ export default {
 }
 </script>
 
-<style>
-.spinner{
-  height: 100vh;
-  width: 100vw;
+<style scoped>
+.spinner {
   position: fixed;
   top: 0;
   left: 0;
-  background-color: rgba(255, 255, 255, 0.5);
+  right: 0;
+  bottom: 0;
+  background: rgba(0, 0, 0, 0.5);
   z-index: 1000;
   display: flex;
-  justify-content: center;
   align-items: center;
+  justify-content: center;
 }
 .loader {
   margin: 100px auto;
