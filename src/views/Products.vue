@@ -164,6 +164,9 @@ export default {
               this.products.push(newObj)
             })
           })
+          .then(() => {
+            this.loadingScreen = false
+          })
       } else {
         // Redirect
         this.$router.push('/products/' + button)
