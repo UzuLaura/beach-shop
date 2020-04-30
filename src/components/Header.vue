@@ -35,7 +35,9 @@ export default {
   methods: {
     getCart () {
       const cart = JSON.parse(localStorage.getItem('cart'))
-      this.cartLength = cart.length
+      cart.forEach(item => {
+        this.cartLength += item.quantity
+      })
     }
   },
   beforeMount () {
