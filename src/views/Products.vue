@@ -1,5 +1,6 @@
 <template>
   <div class="products">
+    <!-- <Spinner  v-bind:loading="loading"/> -->
     <section class="hero is-bold is-dark is-medium">
         <div class="hero-body">
             <div class="container">
@@ -42,6 +43,7 @@
 <script>
 import firebase from 'firebase/app'
 import 'firebase/firebase-firestore'
+// import Spinner from '../components/Header'
 
 export default {
   name: 'Products',
@@ -53,9 +55,12 @@ export default {
         male: '',
         all: 'is-dark'
       },
-      subtitle: 'all watches'
+      subtitle: 'all watches',
+      loading: true
     }
   },
+  // components: { Spinner },
+
   methods: {
     // Method to fetch all data from DB
     get () {
@@ -194,5 +199,4 @@ h2 {
 .filter-buttons button {
     text-transform: uppercase;
 }
-
 </style>
