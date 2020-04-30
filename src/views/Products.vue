@@ -86,6 +86,7 @@ export default {
         cart = cart.filter(item => item.id !== id)
         if (cartItem.length > 0) {
           cartItem[0].quantity++
+          cartItem[0].price = cartItem[0].price + price
           cart.push(cartItem[0])
         } else {
           cart.push({ id: id, price: price, title: title, img: img, quantity: 1 })

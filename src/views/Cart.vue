@@ -21,18 +21,20 @@
             <tbody>
                 <tr v-for='item in cart'
                 :key='item.title'>
-                    <td style="text-align:right">1</td>
+                    <td style="text-align:right">{{ item.quantity }}</td>
                     <td style="text-align:center"><img class="product-img" :src="item.img" :alt="item.title"></td>
                     <td>{{ item.title }}</td>
-                    <td>{{ item.price }} EUR</td>
+                    <td>{{ item.price.toFixed(2) }} EUR</td>
                     <td><b-button type="is-danger" outlined v-on:click="removeFromCart(item.id)">Remove</b-button></td>
                 </tr>
             </tbody>
             <tfoot>
                 <tr>
-                    <td colspan="3" class="right subtitle">Total Price:</td>
-                    <td class="subtitle"> {{ total }}  EUR</td>
-                    <td><b-button @click="redirect"  type="is-dark" outlined native-type="submit">Proceed to payment</b-button></td>
+                    <td class="subtitle right">Total: </td>
+                    <td class="subtitle">{{ quantity }}</td>
+                    <td class="right subtitle">Total Price:</td>
+                    <td class="subtitle"> {{ totalPrice.toFixed(2) }}  EUR</td>
+                    <td><b-button @click="redirect"  type="is-dark" outlined native-type="submit">Continue</b-button></td>
                 </tr>
             </tfoot>
         </table>
@@ -46,19 +48,31 @@ export default {
   data () {
     return {
       cart: [],
-      quantity: 0
+      quantity: 0,
+      totalPrice: 0
     }
   },
   computed: {
     total () {
-      return this.cart.reduce((acc, cur) => acc + Math.floor(cur.price), 0)
+      return this.cart.reduce((acc, cur) => acc + Number(cur.price).toFixed(2), '')
     }
   },
   methods: {
     getFromCart () {
       const cart = JSON.parse(localStorage.getItem('cart'))
-
       cart.forEach(item => this.cart.push(item))
+      // this.quantity = cart.reduce((acc, item) => acc + Number(item.quantity), 0)
+    },
+    getTotalQuantity () {
+      this.cart.forEach(item => {
+        this.quantity += item.quantity
+      })
+      console.log(this.quantity)
+    },
+    getTotalPrice () {
+      this.cart.forEach(item => {
+        this.totalPrice = this.totalPrice + item.price
+      })
     },
     redirect () {
       if (this.total > 0) {
@@ -77,6 +91,8 @@ export default {
   },
   beforeMount () {
     this.getFromCart()
+    this.getTotalQuantity()
+    this.getTotalPrice()
   }
 }
 </script>
