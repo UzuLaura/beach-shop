@@ -88,7 +88,19 @@ export default {
     // Add to local storage Cart
     addToCart (id, price, title, img) {
       let cart = JSON.parse(localStorage.getItem('cart')) || []
-      cart.push({ id: id, price: price, title: title, img: img, quantity: 0 })
+      if (cart.length > 0) {
+        const cartItem = cart.filter(item => item.id === id)
+        cart = cart.filter(item => item.id !== id)
+        if (cartItem.length > 0) {
+          cartItem[0].quantity++
+          cart.push(cartItem[0])
+        } else {
+          cart.push({ id: id, price: price, title: title, img: img, quantity: 1 })
+        }
+      } else {
+        cart.push({ id: id, price: price, title: title, img: img, quantity: 1 })
+      }
+      console.log(cart)
       cart = JSON.stringify(cart)
       localStorage.setItem('cart', cart)
       window.location.reload()

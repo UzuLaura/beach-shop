@@ -1,49 +1,49 @@
 <template>
   <section>
-    <b-carousel class="carousel">
+    <b-carousel class="carousel" :indicator="false" :pause-info="false">
         <b-carousel-item v-for="(carousel, i) in carousels" :key="i">
           <img :src="carousel.src"/>
         </b-carousel-item>
     </b-carousel>
     <div class="container">
       <div class="columns text">
-          <div class="column watch">
-            <h1 class="title is-3">Laikrodziai<br>
-            Vyrams</h1>
-            <b-button type="button" @click="redirectMale" native-type="submit">Ziureti</b-button>
+          <div class="column watch" @click="redirectMale">
+            <h1 class="title is-3">FOR<br>
+            MEN</h1>
+            <b-button class="borderless" type="button" native-type="submit">Look</b-button>
         </div>
-        <div class="line"></div>
-         <div class="column watch">
-            <h1 class="title is-3">Laikrodziai<br>
-            Moterims</h1>
-            <b-button type="button" @click="redirectFemale" native-type="submit">Ziureti</b-button>
+        <div class="vertical-line"></div>
+         <div class="column watch" @click="redirectFemale">
+            <h1 class="title is-3">FOR<br>
+            WOMEN</h1>
+            <b-button class="borderless" type="button" native-type="submit">Look</b-button>
         </div>
-        <div class="line"></div>
-        <div class="column watch">
-            <h1 class="title is-3">Visi<br>
-            Laikrodziai</h1>
-            <b-button type="button" @click="redirect" native-type="submit">Ziureti</b-button>
+        <div class="vertical-line"></div>
+        <div class="column watch" @click="redirect">
+            <h1 class="title is-3">FOR<br>
+            BOTH</h1>
+            <b-button class="borderless" type="button" native-type="submit">Look</b-button>
         </div>
       </div>
     </div>
-    <div class="content">
+    <div class="content content1">
       <div class="container wrapper">
       </div>
       <div class="container collection">
-        <div class="show">
-          <h2>Kolekcijos</h2>
-          <b-button  id="btn" type="button is-dark" @click="redirect" native-type="submit">Ieskoti</b-button>
-        </div>
+          <h2 class="">Collections</h2>
+          <b-button type="button is-dark" @click="redirect" native-type="submit">Find</b-button>
       </div>
       <div class="container content1">
             <div class="columns">
               <div class="column photo">
+            </div>
+            <div class="column text1">
+              <div>
+                <h1 class="title is-2">UNIQUE<br>
+                <span class="indentation">WATCHES</span></h1>
+                <b-button class='button' type="is-dark" outlined @click="redirect" native-type="submit" expanded>Look</b-button>
               </div>
-              <div class="column text1">
-                <h1 class="title is-2">Unikalus<br>
-                <span class="laikrodis">Laikrodziai</span></h1>
-                  <b-button class='button mygtukas' type="is-dark" outlined @click="redirect" native-type="submit">Ziureti</b-button>
-          </div>
+            </div>
         </div>
       </div>
     </div>
@@ -57,10 +57,9 @@ export default {
   data () {
     return {
       carousels: [
-        { src: 'https://images.pexels.com/photos/125779/pexels-photo-125779.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=750&w=1260' },
-        { src: 'https://images.pexels.com/photos/190819/pexels-photo-190819.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=750&w=1260' },
-        { src: 'https://images.pexels.com/photos/128206/pexels-photo-128206.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=750&w=1260' },
-        { src: 'https://images.pexels.com/photos/2113994/pexels-photo-2113994.jpeg?auto=compress&cs=tinysrgb&dpr=2&w=500' }
+        { src: 'https://www.heritagewatches.co.uk/image/cache/catalog/slideshow/heritage_sliders_general_notext-1920x600.jpg' },
+        { src: 'https://chrwatches.com/wp-content/uploads/2016/11/Pulsar-Ladies-Banner.jpg' },
+        { src: 'https://www.qualitykingwatch.com/image/cache/catalog/slider/allcollection-1920x600.jpg' }
       ]
     }
   },
@@ -78,100 +77,88 @@ export default {
 }
 </script>
 <style scoped>
-.columns, .column{
-  margin: 0;
+.columns, .column {
   padding: 0;
+  margin: 0;
 }
-.carousel img{
-  height: 550px;
-  width: 100%;
+.text {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
 }
-.text{
-  padding-bottom: 1em;
-}
-.laikrodis{
+.indentation {
   margin-left: 30px;
 }
-.watch{
+.watch {
   text-align: center;
   margin-top: 20px;
+  cursor: pointer;
 }
-.button{
-  border: none;
+.watch:hover {
+  opacity: 0.8;
 }
-.mygtukas{
-  border: 1px solid black;
-  width: 30%;
-  padding-top: 10px;
-  padding-bottom: 35px;
-}
-.content h2{
+.content h2 {
   margin: 0;
-  padding: 0;
 }
-#btn{
-  color:rgba(253, 221, 37, 0.877);
-}
-.button::after{
+.button::after {
     content: "\276F";
     font-size: .8em;
     display: inline-block;
     padding-left: 15px;
 }
-.line{
-    content: "";
+.borderless {
+  border: none;
+}
+.vertical-line {
     display: block;
     background-color: #e6e6e6;
     width: 1px;
     height: 90px;
-    margin-top: 25px;
-
 }
 .content{
   background-color: #eee;
 }
-.collection{
-  margin: 0 auto;
-  background: #fff;
-}
-.show{
-  margin: 0 auto;
+.collection {
   display: flex;
   justify-content: space-between;
   align-items: center;
   height: 80px;
-  width: 85%;
+  background: #fff;
+  padding: 30px;
 }
-.wrapper{
+.wrapper {
   margin: 0 auto;
   background-image: url('https://www.vacheron-constantin.com/content/dam-import/vac/a9c9/11f0/2038102.png.scale.1180.380.jpeg');
   background-size: cover;
+  background-position: center;
   height: 350px;
 }
-.content1{
+.content1 {
   margin-top: 15px;
 }
-.photo{
+.photo {
   background-image: url('https://images.unsplash.com/photo-1482775907821-a56ec43344fc?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1952&q=80');
   background-size: cover;
+  background-position: center;
   height: 550px;
 }
-.text1{
+.text1 {
   background-color: white;
-  padding-top: 100px;
-  padding-left: 40px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 550px;
 }
 @media only screen and (max-width:763px){
-  .line{
-    margin: 0 auto;
+  .vertical-line{
     height: 2px;
-    margin-top: 20px;
-    width: 250px;
+    width: 100%;
+    margin: 0 30px;
   }
-  .photo{
+  .photo {
     max-height: 400px;
   }
-  .text1{
+  .text1 {
     padding-bottom: 50px;
   }
 }

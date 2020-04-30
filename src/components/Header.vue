@@ -53,10 +53,12 @@ export default {
   }
   .navbar-item img {
     max-height: 50px;
-    padding: 2px;
+    margin: 5px;
   }
   .a-name {
     color: #0f7670;
     font-size: 20px;
+    text-transform: uppercase;
   }
+
 </style>
