@@ -9,7 +9,10 @@
         </div>
     </section>
     <section class="container">
-      <div class="paymentForm">
+        <div class="paymentForm">
+          <b-notification :active.sync="isActive" class="is-warning" aria-close-label="Close notification">
+          You have successfully made a payment
+          </b-notification>
         <form @submit.prevent="addInfo">
           <div class="columns">
             <div class="column">
@@ -53,9 +56,12 @@
           <div class="columns">
             <div class="column">
               <b-field label="Address">
-                <b-input v-model="address" placeholder="address"></b-input>
+                <b-input v-model="address" placeholder="1234 Main street"></b-input>
               </b-field>
             </div>
+            <b-field label="Message(optional)">
+              <b-input maxlength="200" type="textarea"></b-input>
+            </b-field>
           </div>
           <div class="block">
             <b-radio
@@ -98,8 +104,9 @@ export default {
       number: '',
       address: '',
       amount: 0,
-      isComponentModalActive: false
-      //   complete: false
+      isComponentModalActive: false,
+      //   complete: false,
+      isActive: false
     }
   },
   //   components: { Card },
@@ -147,8 +154,17 @@ export default {
           surname: this.surname.charAt(0).toUpperCase() + this.surname.slice(1),
           email: this.email,
           number: this.number,
-          address: this.address
-        }).then(() => alert('info was added'))
+          address: this.address,
+          time: firebase.firestore.FieldValue.serverTimestamp()
+        }).then(() => {
+          this.isActive = true
+          this.name = ''
+          this.surname = ''
+          this.email = ''
+          this.number = ''
+          this.address = ''
+          alert('Info was added')
+        })
       } else {
         console.log(this.isComponentModalActive)
       }
@@ -182,11 +198,11 @@ export default {
   margin: 0 auto;
 } */
 /* Kam reikalingas btn id? */
-#btn {
+/* #btn {
   /* padding-left: 20px;
   padding-right: 20px; */
   /* color: silver */
-}
+/* } */
 .subtitle {
   text-transform: uppercase;
 }
