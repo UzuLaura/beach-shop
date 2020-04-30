@@ -59,10 +59,10 @@
                 <b-input v-model="address" placeholder="1234 Main street"></b-input>
               </b-field>
             </div>
-            <b-field label="Message(optional)">
+          </div>
+          <b-field label="Message(optional)">
               <b-input maxlength="200" type="textarea"></b-input>
             </b-field>
-          </div>
           <div class="block">
             <b-radio
                 native-value="Flint">
@@ -193,16 +193,6 @@ export default {
   box-shadow: 0 0px 2px 2px #eee;
   border-radius: 8px;
 }
-/* form {
-  width: 70%;
-  margin: 0 auto;
-} */
-/* Kam reikalingas btn id? */
-/* #btn {
-  /* padding-left: 20px;
-  padding-right: 20px; */
-  /* color: silver */
-/* } */
 .subtitle {
   text-transform: uppercase;
 }
