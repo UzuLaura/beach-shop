@@ -52,11 +52,6 @@ export default {
       totalPrice: 0
     }
   },
-  computed: {
-    total () {
-      return this.cart.reduce((acc, cur) => acc + Number(cur.price).toFixed(2), '')
-    }
-  },
   methods: {
     getFromCart () {
       const cart = JSON.parse(localStorage.getItem('cart'))

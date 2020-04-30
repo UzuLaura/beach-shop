@@ -73,7 +73,7 @@ export default {
             const newObj = {
               id: product.id,
               title: product.data().title,
-              price: product.data().price,
+              price: Number(product.data().price),
               img: product.data().img,
               about: this.cutText(product.data().about),
               tag: product.data().tag,
@@ -155,7 +155,7 @@ export default {
               const newObj = {
                 id: product.id,
                 title: product.data().title,
-                price: product.data().price,
+                price: Number(product.data().price),
                 img: product.data().img,
                 about: this.cutText(product.data().about),
                 tag: product.data().tag,

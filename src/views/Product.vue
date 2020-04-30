@@ -59,7 +59,7 @@ export default {
         .then(data => {
           this.product.id = data.id
           this.product.title = data.data().title
-          this.product.price = data.data().price
+          this.product.price = Number(data.data().price)
           this.product.img = data.data().img
           this.product.about = data.data().about
           this.product.tag = data.data().tag
