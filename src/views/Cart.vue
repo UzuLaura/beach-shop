@@ -10,11 +10,13 @@
     <section class="container">
         <table class="table table is-fullwidth">
             <thead>
+              <tr>
                 <th style="text-align:right">Quantity</th>
                 <th style="text-align:center">Item Image</th>
                 <th>Item Name</th>
                 <th>Price</th>
                 <th>Remove</th>
+              </tr>
             </thead>
             <tbody>
                 <tr v-for='item in cart'
@@ -29,7 +31,7 @@
             <tfoot>
                 <tr>
                     <td colspan="3" class="right subtitle">Total Price:</td>
-                    <td class="subtitle"> {{total}}  EUR</td>
+                    <td class="subtitle"> {{ total }}  EUR</td>
                     <td><b-button @click="redirect"  type="is-dark" outlined native-type="submit">Proceed to payment</b-button></td>
                 </tr>
             </tfoot>
@@ -59,7 +61,11 @@ export default {
       cart.forEach(item => this.cart.push(item))
     },
     redirect () {
-      this.$router.push('/orders')
+      if (this.total > 0) {
+        this.$router.push('/orders')
+      } else {
+        alert('Your cart is empty!')
+      }
     },
     removeFromCart (id) {
       let cart = JSON.parse(localStorage.getItem('cart'))

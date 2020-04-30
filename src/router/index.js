@@ -44,6 +44,7 @@ const routes = [
     path: '/orders',
     name: 'Orders',
     component: Orders
+    // Padaryti, kad neleistu eiti i orders, jei krepselis tuscias
   }
 ]
 
