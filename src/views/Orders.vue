@@ -11,7 +11,7 @@
     <section class="container">
         <div class="paymentForm">
           <b-notification :active.sync="isActive" v-bind:class="color" aria-close-label="Close notification">
-          {{notification}}
+          {{ notification }}
           </b-notification>
         <form @submit.prevent="addInfo">
           <div class="columns">

@@ -73,12 +73,13 @@ export default {
             const newObj = {
               id: product.id,
               title: product.data().title,
-              price: Number(product.data().price),
+              price: Number.parseFloat(product.data().price.toFixed(2)),
               img: product.data().img,
               about: this.cutText(product.data().about),
               tag: product.data().tag,
               tagColor: this.setTagColor(product.data().tag)
             }
+            console.log(typeof newObj.price)
             this.products.push(newObj)
           })
         }).then(() => {

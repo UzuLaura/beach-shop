@@ -69,13 +69,8 @@ export default {
       })
       console.log(this.quantity)
     },
-    // getTotalPrice () {
-    //   this.cart.forEach(item => {
-    //     this.totalPrice = this.totalPrice + item.price
-    //   })
-    // },
     getTotalPrice () {
-      this.totalPrice = this.cart.reduce((acc, cur) => acc + Number(cur.price), 0)
+      this.totalPrice = this.cart.reduce((acc, cur) => acc + Number(cur.price), 0).toFixed(2)
     },
     redirect () {
       if (this.totalPrice > 0) {
