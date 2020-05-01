@@ -10,14 +10,14 @@
     </section>
     <section class="container">
         <div class="paymentForm">
-          <b-notification :active.sync="isActive" class="is-warning" aria-close-label="Close notification">
-          You have successfully made a payment
+          <b-notification :active.sync="isActive" v-bind:class="color" aria-close-label="Close notification">
+          {{notification}}
           </b-notification>
         <form @submit.prevent="addInfo">
           <div class="columns">
             <div class="column">
-              <b-field label="Name" expanded>
-                <b-field>
+              <b-field label="Name" v-bind:type="color" v-bind:message="errorName" expanded>
+                <b-field >
                   <b-select placeholder="Title">
                     <option>Mr.</option>
                     <option>Ms.</option>
@@ -27,19 +27,21 @@
               </b-field>
             </div>
             <div class="column">
-              <b-field label="Surname">
-                <b-input v-model="surname" placeholder="Surname" value=""></b-input>
+              <b-field label="Surname" v-bind:message="errorSurname" v-bind:type="color">
+                <b-input v-model="surname"  placeholder="Surname" value=""></b-input>
               </b-field>
             </div>
           </div>
           <div class="columns">
             <div class="column">
-              <b-field label="Email">
+              <b-field label="Email"
+                 v-bind:message="errorEmail"
+                 v-bind:type="color">
                 <b-input v-model="email" placeholder="some@email.com"></b-input>
               </b-field>
             </div>
             <div class="column">
-              <b-field label="Phone Number">
+              <b-field label="Phone Number" v-bind:type="color"  v-bind:message="errorPhone">
                 <div class="field has-addons">
                   <p class="control">
                     <a class="button is-static">
@@ -55,7 +57,7 @@
           </div>
           <div class="columns">
             <div class="column">
-              <b-field label="Address">
+              <b-field label="Address" v-bind:type="color" v-bind:message="errorAdress">
                 <b-input v-model="address" placeholder="1234 Main street"></b-input>
               </b-field>
             </div>
@@ -72,7 +74,7 @@
           <div class="buttons is-right">
             <b-button id="btn" type="button is-warning is-medium" native-type="submit" @click="isComponentModalActive = true">Pay - {{ amount }} € </b-button>
           </div>
-          <b-modal :active.sync="isComponentModalActive"
+          <!-- <b-modal :active.sync="isComponentModalActive"
                   has-modal-card
                   trap-focus
                   :destroy-on-hide="false"
@@ -80,7 +82,7 @@
                   aria-modal>
             <modal-form>
             </modal-form>
-          </b-modal>
+          </b-modal> -->
         </form>
       </div>
     </section>
@@ -104,9 +106,16 @@ export default {
       number: '',
       address: '',
       amount: 0,
+      notification: '',
+      errorName: '',
+      errorSurname: '',
+      errorEmail: '',
+      errorPhone: '',
+      errorAdress: '',
       isComponentModalActive: false,
       //   complete: false,
-      isActive: false
+      isActive: false,
+      color: ''
     }
   },
   //   components: { Card },
@@ -116,6 +125,8 @@ export default {
       const nameSurnamePattern = /^([a-zA-Z ]){2,30}$/
       if (!this.name) {
         console.log('Please enter name')
+        this.errorName = 'Please enter name'
+        this.color = 'is-danger'
         return false
       } else if (!nameSurnamePattern.test(this.name)) {
         console.log('Name should contain letters only')
@@ -123,25 +134,35 @@ export default {
       }
       if (!this.surname) {
         console.log('Please enter surname')
+        this.errorSurname = 'Please enter surname'
+        this.color = 'is-danger'
         return false
       }
       // Validating email
       const emailPattern = /^\w+([-]?\w+)*@\w+([-]?\w+)*(\.\w{2,3})+$/
       if (!this.email) {
         console.log('Please enter email')
+        this.errorEmail = 'Please enter email'
+        this.color = 'is-danger'
         return false
       } else if (emailPattern.test(this.email) === false) {
         console.log('Please enter valid email')
+        this.errorEmail = 'Please enter valid email'
+        this.color = 'is-danger'
         return false
       }
       // Validating phone number
       if (!this.number) {
         console.log('Please enter phone number')
+        this.errorPhone = 'Please enter phone number'
+        this.color = 'is-danger'
         return false
       }
       // Validating address
       if (!this.address) {
         console.log('Please enter address')
+        this.errorAdress = 'Please enter adress'
+        this.color = 'is-danger'
         return false
       }
       return true
@@ -158,6 +179,8 @@ export default {
           time: firebase.firestore.FieldValue.serverTimestamp()
         }).then(() => {
           this.isActive = true
+          this.notification = 'You have successfully made a payment'
+          this.color = 'is-warning'
           this.name = ''
           this.surname = ''
           this.email = ''
@@ -165,18 +188,16 @@ export default {
           this.address = ''
           localStorage.clear()
           window.location.reload()
-          alert('Info was added')
         })
       } else {
-        console.log(this.isComponentModalActive)
+        this.isActive = true
+        this.color = 'is-danger'
+        this.notification = 'Payment was not successful, please try again'
       }
     },
     getPrice () {
       const price = JSON.parse(localStorage.getItem('cart'))
-      //   price.forEach((item) => {
-      //     this.amount = item.price
-      //   })
-      this.amount = price.reduce((acc, cur) => acc + Math.floor(cur.price), 0)
+      this.amount = price.reduce((acc, cur) => acc + Number(cur.price), 0)
     }
   },
   beforeMount () {
