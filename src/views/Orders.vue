@@ -154,7 +154,6 @@ export default {
         message: '',
         color: ''
       },
-      color: '',
       isComponentModalActive: false,
       complete: false,
       isActive: false,
