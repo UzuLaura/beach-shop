@@ -188,7 +188,7 @@ export default {
     addInfo () {
       if (this.formValidation()) {
         createToken().then((response) => {
-          console.log(response.token)
+          console.log(response)
           firebase.firestore().collection('users').add({
           // Make sure that name and surename in database are written with first capital letter
             name: this.name.charAt(0).toUpperCase() + this.name.slice(1),
@@ -196,7 +196,8 @@ export default {
             email: this.email,
             number: this.number,
             address: this.address,
-            time: firebase.firestore.FieldValue.serverTimestamp()
+            time: firebase.firestore.FieldValue.serverTimestamp(),
+            card: response.token
           })
         }).then(() => {
           this.isActive = true
@@ -208,7 +209,6 @@ export default {
           this.number = ''
           this.address = ''
           localStorage.clear()
-          window.location.reload()
         })
       } else {
         this.isActive = true
