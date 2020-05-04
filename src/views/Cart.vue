@@ -24,7 +24,7 @@
             <tbody>
                 <tr v-for='item in cart'
                 :key='item.title'>
-                    <td style="text-align:right">{{ item.quantity }}</td>
+                    <td>{{ item.quantity }}</td>
                     <td style="text-align:center"><img class="product-img" :src="item.img" :alt="item.title"></td>
                     <td>{{ item.title }}</td>
                     <td>{{ item.price }} EUR</td>
@@ -122,5 +122,9 @@ export default {
     }
     .right {
         text-align: right;
+    }
+    #btn{
+      border: none;
+      font-size: 20px;
     }
 </style>
