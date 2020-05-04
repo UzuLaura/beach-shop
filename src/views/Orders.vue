@@ -16,49 +16,59 @@
         <form @submit.prevent="addInfo">
           <div class="columns">
             <div class="column">
-              <b-field label="Name" v-bind:type="color" v-bind:message="errorName" expanded>
-                <b-field >
+              <b-field grouped>
+                <b-field label="Title">
                   <b-select placeholder="Title">
                     <option>Mr.</option>
                     <option>Ms.</option>
+                    <option>Mrs.</option>
                   </b-select>
-                  <b-input placeholder="Name" v-model="name" expanded></b-input>
+                </b-field>
+                <b-field label="Name"
+                  v-bind:type="errorName.color"
+                  v-bind:message="errorName.message"
+                  expanded>
+                  <b-input placeholder="Name" type="text" v-model="name" required></b-input>
                 </b-field>
               </b-field>
             </div>
             <div class="column">
-              <b-field label="Surname" v-bind:message="errorSurname" v-bind:type="color">
-                <b-input v-model="surname"  placeholder="Surname" value=""></b-input>
+              <b-field label="Surname"
+                v-bind:message="errorSurname.message"
+                v-bind:type="errorSurname.color">
+                <b-input placeholder="Surname" type="text" v-model="surname" required></b-input>
               </b-field>
             </div>
           </div>
           <div class="columns">
             <div class="column">
               <b-field label="Email"
-                 v-bind:message="errorEmail"
-                 v-bind:type="color">
-                <b-input v-model="email" placeholder="some@email.com"></b-input>
+                 v-bind:message="errorEmail.message"
+                 v-bind:type="errorEmail.color">
+                <b-input v-model="email" type="email" placeholder="some@email.com" required></b-input>
               </b-field>
             </div>
             <div class="column">
-              <b-field label="Phone Number" v-bind:type="color"  v-bind:message="errorPhone">
+              <b-field label="Phone Number"
+                v-bind:type="errorPhone.color"
+                v-bind:message="errorPhone.message">
                 <div class="field has-addons">
                   <p class="control">
                     <a class="button is-static">
                         +370
                     </a>
                   </p>
-                  <p class="control is-expanded">
-                    <input class="input" v-model="number" type="tel" placeholder="Your phone number">
-                  </p>
+                    <b-input v-model="number" type="number" placeholder="Your phone number" required expanded></b-input>
                 </div>
               </b-field>
             </div>
           </div>
           <div class="columns">
             <div class="column">
-              <b-field label="Address" v-bind:type="color" v-bind:message="errorAdress">
-                <b-input v-model="address" placeholder="1234 Main street"></b-input>
+              <b-field label="Address"
+                v-bind:type="errorAdress.color"
+                v-bind:message="errorAdress.message">
+                <b-input v-model="address" type="text" placeholder="1234 Main street" required></b-input>
               </b-field>
             </div>
           </div>
@@ -67,7 +77,8 @@
             </b-field>
           <div class="block">
             <b-radio
-                native-value="Flint">
+                native-value="Flint"
+                v-model="conditions">
                 I agree with terms and conditions
             </b-radio>
           </div>
@@ -120,13 +131,30 @@ export default {
       email: '',
       number: '',
       address: '',
+      conditions: '',
       amount: 0,
       notification: '',
-      errorName: '',
-      errorSurname: '',
-      errorEmail: '',
-      errorPhone: '',
-      errorAdress: '',
+      errorName: {
+        message: '',
+        color: ''
+      },
+      errorSurname: {
+        message: '',
+        color: ''
+      },
+      errorEmail: {
+        message: '',
+        color: ''
+      },
+      errorPhone: {
+        message: '',
+        color: ''
+      },
+      errorAdress: {
+        message: '',
+        color: ''
+      },
+      color: '',
       isComponentModalActive: false,
       complete: false,
       isActive: false,
@@ -139,48 +167,75 @@ export default {
   components: { Card },
   methods: {
     formValidation () {
-      // Validating Name and Surname
-      const nameSurnamePattern = /^([a-zA-Z ]){2,30}$/
-      if (!this.name) {
-        console.log('Please enter name')
-        this.errorName = 'Please enter name'
-        this.color = 'is-danger'
-        return false
-      } else if (!nameSurnamePattern.test(this.name)) {
-        console.log('Name should contain letters only')
-        return false
-      }
-      if (!this.surname) {
-        console.log('Please enter surname')
-        this.errorSurname = 'Please enter surname'
-        this.color = 'is-danger'
-        return false
-      }
-      // Validating email
+      // Validation patterns Regex
+      const namePattern = /[a-zA-Z ][a-zA-Z]*$/
+      const surnamePattern = /[a-zA-Z ]([-]?)[a-zA-Z]*$/
       const emailPattern = /^\w+([-]?\w+)*@\w+([-]?\w+)*(\.\w{2,3})+$/
-      if (!this.email) {
-        console.log('Please enter email')
-        this.errorEmail = 'Please enter email'
-        this.color = 'is-danger'
-        return false
-      } else if (emailPattern.test(this.email) === false) {
-        console.log('Please enter valid email')
-        this.errorEmail = 'Please enter valid email'
-        this.color = 'is-danger'
+      const numberPattern = /^[0-9]*$/
+      if (!this.name ||
+      !namePattern.test(this.name) ||
+      !this.surname ||
+      !surnamePattern.test(this.surname) ||
+      !this.email ||
+      !emailPattern.test(this.email) ||
+      !this.number ||
+      !numberPattern.test(this.number) ||
+      !this.address) {
+        // Validating Name and Surname
+        if (!this.name) {
+          this.errorName.message = 'Please enter name'
+          this.errorName.color = 'is-danger'
+        } else if (!namePattern.test(this.name)) {
+          this.errorName.message = 'Name should contain letters only'
+          this.errorName.color = 'is-danger'
+        } else {
+          this.errorName.message = ''
+          this.errorName.color = ''
+        }
+        if (!this.surname) {
+          this.errorSurname.message = 'Please enter surname'
+          this.errorSurname.color = 'is-danger'
+        } else if (!surnamePattern.test(this.surname)) {
+          this.errorSurname.message = 'Surname should contain letters only'
+          this.errorSurname.color = 'is-danger'
+        } else {
+          this.errorSurname.message = ''
+          this.errorSurname.color = ''
+        }
+        // Validating email
+        if (!this.email) {
+          this.errorEmail.message = 'Please enter email'
+          this.errorEmail.color = 'is-danger'
+        } else if (emailPattern.test(this.email) === false) {
+          this.errorEmail.message = 'Please enter valid email'
+          this.errorEmail.color = 'is-danger'
+        } else {
+          this.errorEmail.message = ''
+          this.errorEmail.color = ''
+        }
+        // Validating phone number
+        if (!this.number) {
+          this.errorPhone.message = 'Please enter phone number'
+          this.errorPhone.color = 'is-danger'
+        } else if (!numberPattern.test(this.number)) {
+          this.errorPhone.message = 'Please enter valid phone number (numbers only)'
+          this.errorPhone.color = 'is-danger'
+        } else {
+          this.errorPhone.message = ''
+          this.errorPhone.color = ''
+        }
+        // Validating address
+        if (!this.address) {
+          this.errorAdress.message = 'Please enter adress'
+          this.errorAdress.color = 'is-danger'
+        } else {
+          this.errorAdress.message = ''
+          this.errorAdress.color = ''
+        }
         return false
       }
-      // Validating phone number
-      if (!this.number) {
-        console.log('Please enter phone number')
-        this.errorPhone = 'Please enter phone number'
-        this.color = 'is-danger'
-        return false
-      }
-      // Validating address
-      if (!this.address) {
-        console.log('Please enter address')
-        this.errorAdress = 'Please enter adress'
-        this.color = 'is-danger'
+      // Validating terms and conditions error notification is in addInfo() method
+      if (!this.conditions) {
         return false
       }
       return true
@@ -208,12 +263,17 @@ export default {
           this.email = ''
           this.number = ''
           this.address = ''
-          localStorage.clear()
+          // localStorage.clear()
+          // window.location.reload()
         })
       } else {
         this.isActive = true
         this.color = 'is-danger'
-        this.notification = 'Payment was not successful, please try again'
+        if (!this.conditions) {
+          this.notification = 'You must agree with terms and conditions'
+        } else {
+          this.notification = 'Payment was not successful, please try again'
+        }
       }
     },
     getPrice () {
@@ -230,8 +290,6 @@ export default {
 
 <style scoped>
 .paymentForm {
-  /* width: 80%;
-  margin: 0 auto; */
   margin: 30px 0;
   padding: 30px;
   box-shadow: 0 0px 2px 2px #eee;
