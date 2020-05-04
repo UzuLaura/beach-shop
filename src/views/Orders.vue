@@ -67,7 +67,8 @@
             </b-field>
           <div class="block">
             <b-radio
-                native-value="Flint">
+                native-value="Flint"
+                v-model="conditions">
                 I agree with terms and conditions
             </b-radio>
           </div>
@@ -105,6 +106,7 @@ export default {
       email: '',
       number: '',
       address: '',
+      conditions: '',
       amount: 0,
       notification: '',
       errorName: '',
@@ -124,7 +126,6 @@ export default {
       // Validating Name and Surname
       const nameSurnamePattern = /^([a-zA-Z ]){2,30}$/
       if (!this.name) {
-        console.log('Please enter name')
         this.errorName = 'Please enter name'
         this.color = 'is-danger'
         return false
@@ -136,6 +137,9 @@ export default {
         console.log('Please enter surname')
         this.errorSurname = 'Please enter surname'
         this.color = 'is-danger'
+        return false
+      } else if (!nameSurnamePattern.test(this.surname)) {
+        console.log('Surname should contain letters only')
         return false
       }
       // Validating email
@@ -152,9 +156,15 @@ export default {
         return false
       }
       // Validating phone number
+      const numberPattern = /^[0-9]*$/
       if (!this.number) {
         console.log('Please enter phone number')
         this.errorPhone = 'Please enter phone number'
+        this.color = 'is-danger'
+        return false
+      } else if (!numberPattern.test(this.number)) {
+        console.log('phone')
+        this.errorPhone = 'Please enter valid phone number (numbers only)'
         this.color = 'is-danger'
         return false
       }
@@ -163,6 +173,11 @@ export default {
         console.log('Please enter address')
         this.errorAdress = 'Please enter adress'
         this.color = 'is-danger'
+        return false
+      }
+      // Validating terms and conditions
+      if (!this.conditions) {
+        console.log('You must agree with terms and conditions')
         return false
       }
       return true
