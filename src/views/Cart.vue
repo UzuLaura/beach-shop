@@ -74,6 +74,8 @@ export default {
     },
     redirect () {
       if (this.totalPrice > 0) {
+        // !!!!!!!!!!!!! Blogai irasoma !!!!!!!!!!!!!! Turi buti visas orderis irsytas, o ne kiekvienas itemas atskirai
+        // ir turi buti irasomas user id !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
         this.cart.forEach((item) => {
           firebase.firestore().collection('orders').add({
             id: item.id,
