@@ -85,6 +85,13 @@
           <div class="buttons is-right">
             <b-button id="btn" type="button is-warning is-medium" native-type="submit" @click="isComponentModalActive = true">Pay - {{ amount }} € </b-button>
           </div>
+          <Card
+                class='stripe-card'
+                :class='{ complete }'
+                stripe='pk_test_i28ouERO9Dli1OlxDdGM7HFA00hCEjnkrw'
+                :options='stripeOptions'
+                @change='complete = $event.complete'
+              />
           <!-- <b-modal :active.sync="isComponentModalActive"
                   has-modal-card
                   trap-focus
@@ -92,6 +99,14 @@
                   aria-role="dialog"
                   aria-modal>
             <modal-form>
+              <Card
+                class='stripe-card'
+                :class='{ complete }'
+                stripe='pk_test_i28ouERO9Dli1OlxDdGM7HFA00hCEjnkrw'
+                :options='stripeOptions'
+                @change='complete = $event.complete'
+              />
+              <b-button type="button is-warning" native-type="submit">Submit</b-button>
             </modal-form>
           </b-modal> -->
         </form>
@@ -102,7 +117,7 @@
 
 <script>
 // // import { stripeKey, stripeOptions } from './stripeConfig.json'
-// import { Card, CreateToke } from 'vue-stripe-elements-plus'
+import { Card, createToken } from 'vue-stripe-elements-plus'
 
 import firebase from 'firebase/app'
 import 'firebase/firebase-firestore'
@@ -141,11 +156,15 @@ export default {
       },
       color: '',
       isComponentModalActive: false,
-      //   complete: false,
-      isActive: false
+      complete: false,
+      isActive: false,
+      stripeOptions: {
+
+      },
+      color: ''
     }
   },
-  //   components: { Card },
+  components: { Card },
   methods: {
     formValidation () {
       // Validation patterns Regex
@@ -223,14 +242,18 @@ export default {
     },
     addInfo () {
       if (this.formValidation()) {
-        firebase.firestore().collection('users').add({
+        createToken().then((response) => {
+          console.log(response)
+          firebase.firestore().collection('users').add({
           // Make sure that name and surename in database are written with first capital letter
-          name: this.name.charAt(0).toUpperCase() + this.name.slice(1),
-          surname: this.surname.charAt(0).toUpperCase() + this.surname.slice(1),
-          email: this.email,
-          number: this.number,
-          address: this.address,
-          time: firebase.firestore.FieldValue.serverTimestamp()
+            name: this.name.charAt(0).toUpperCase() + this.name.slice(1),
+            surname: this.surname.charAt(0).toUpperCase() + this.surname.slice(1),
+            email: this.email,
+            number: this.number,
+            address: this.address,
+            time: firebase.firestore.FieldValue.serverTimestamp(),
+            card: response.token
+          })
         }).then(() => {
           this.isActive = true
           this.notification = 'You have successfully made a payment'
@@ -275,11 +298,13 @@ export default {
 .subtitle {
   text-transform: uppercase;
 }
-/* .stripe-card {
-  width: 300px;
+.stripe-card {
+  width: 500px;
   border: 1px solid grey;
+  padding: 10px;
+  color: white;
 }
 .stripe-card.complete {
   border-color: green;
-} */
+}
 </style>
